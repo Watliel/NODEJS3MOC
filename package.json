@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Watliel/NODEJS3MOC/issues"
   },
-  "homepage": "https://github.com/Watliel/NODEJS3MOC#readme"
+  "homepage": "https://github.com/Watliel/NODEJS3MOC#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
