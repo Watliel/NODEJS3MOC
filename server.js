@@ -4,11 +4,11 @@ var app = express()
 
 app.use(express())
 app.get('/hello', function(req, res) {
-    var country = req.query. country
+    var name = req.query.name
   if(!country){
-    res.send("Which country do you want ?")
+    res.send("Which name do you want ?")
   } else {
-    res.send("Hello," + country + "!" )
+    res.send("Hello," + name + "!" )
   }
 })
 var port = process.env.PORT || 3000;
