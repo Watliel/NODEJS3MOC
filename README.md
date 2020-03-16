@@ -1,0 +1,1 @@
+Installer le dependences et effectuer un npm start
