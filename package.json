@@ -19,6 +19,8 @@
   "homepage": "https://github.com/Watliel/NODEJS3MOC#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.5",
     "node": "^13.10.1"
   }
 }
