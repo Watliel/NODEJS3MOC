@@ -1,4 +1,8 @@
 const mongoose = require('mongoose')
+const db = require('mongodb')
+const fs = require('fs')
+const MongoClient = require('mongodb').MongoClient;
+//const client = new MongoClient(bddURL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const dateSchema = new mongoose.Schema({
 	date: {
@@ -8,7 +12,6 @@ const dateSchema = new mongoose.Schema({
         type: String
     }
 });
-
 var date = mongoose.model("date", dateSchema);
 
 exports.getDates = (req, res) => {
@@ -32,4 +35,27 @@ exports.addNewDate = (req,res) => {
 		res.json(dateSchema)
 		console.log('Date ajouté')
 	})
+}
+exports.deleteLast = (req, res) => {
+    
+    date.find({})
+    
+    .then(dateSchema => {
+        //var last = JSON.parse(dateSchema[dateSchema.length-1])
+        var last = dateSchema[dateSchema.length-1]
+        var id = last._id
+        console.log(id)
+
+        date.deleteOne({_id: id}, (err) => {
+            if(err){
+                res.send(err)
+            }
+            res.send('supprimé')
+        })
+    })/*.catch(err) {
+        console.log(err)
+    }*/
+
+
+     
 }

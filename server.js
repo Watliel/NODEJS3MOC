@@ -21,3 +21,4 @@ app.listen(port, function (){
 
 app.post('/chat', dateController.addNewDate)
 app.get('/messages/all', dateController.getDates)
+app.delete('/messages/last', dateController.deleteLast)
