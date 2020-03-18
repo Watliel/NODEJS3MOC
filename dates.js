@@ -3,13 +3,16 @@ const mongoose = require('mongoose')
 const dateSchema = new mongoose.Schema({
 	date: {
 		type: Date
-	}
+    },
+    msg: {
+        type: String
+    }
 });
 
 var date = mongoose.model("date", dateSchema);
 
 exports.getDates = (req, res) => {
-  dateSchema.find({})
+   date.find({})
   .then(dateSchema => {
       console.log('Dates on response')
       res.send(dateSchema)
@@ -19,7 +22,8 @@ exports.getDates = (req, res) => {
 }
 exports.addNewDate = (req,res) => {
 	let dateTime = new date({
-		date: new Date
+        date: new Date,
+        msg: 'demain = ' + req.query.msg
 	})
 	dateTime.save((err, dateSchema)=> {
 		if(err){
