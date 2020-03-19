@@ -7,7 +7,7 @@ Ce serveur répond "Hello World" quand on envoie une requête HTTP GET à la rac
 ## Installation et exécution
 
 ```
-$ git clone https://github.com/adrienjoly/node-esgi.git
+$ git clone mon de mon git pour ce projet
 $ cd node-esgi
 $ npm install # pour installer les dépendances
 $ npm start # pour exécuter le serveur
@@ -19,3 +19,5 @@ $ npm start # pour exécuter le serveur
 ```
 $ curl http://localhost:3000/ # doit retourner le texte “Hello World”
 ```
+## installation de express-generator
+$ taper npx express-generator --hogan --git
