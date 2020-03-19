@@ -1,61 +1,19 @@
-const mongoose = require('mongoose')
-const db = require('mongodb')
-const fs = require('fs')
+// => pour lancer ce script avec serveur mongodb, taper la commande suivante:
+// $ MONGODB_URI=<mon_mot_de_passe> node dates.js
+// # e.g. MONGODB_URI=mongodb+srv://defaultuser:${PASSWORD}@esgi202003-ljuxa.mongodb.net/test?retryWrites=true&w=majority
+
 const MongoClient = require('mongodb').MongoClient;
-//const client = new MongoClient(bddURL, { useNewUrlParser: true, useUnifiedTopology: true });
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const dateSchema = new mongoose.Schema({
-	date: {
-		type: Date
-    },
-    msg: {
-        type: String
-    }
-});
-var date = mongoose.model("date", dateSchema);
+(async () => {
+  await client.connect();
+  const collection = client.db("test").collection("dates");
+  // affiche la liste des documents de la collection dates dans la sortie standard
+  const dates = await collection.find({}).toArray();
+  console.log('dates:', dates)
 
-exports.getDates = (req, res) => {
-   date.find({})
-  .then(dateSchema => {
-      console.log('Dates on response')
-      res.send(dateSchema)
-  }) .catch(err => {
-      res.send(err)
-  })
-}
-exports.addNewDate = (req,res) => {
-	let dateTime = new date({
-        date: new Date,
-        msg: 'demain = ' + req.query.msg
-	})
-	dateTime.save((err, dateSchema)=> {
-		if(err){
-			res.send(err)
-		}
-		res.json(dateSchema)
-		console.log('Date ajouté')
-	})
-}
-exports.deleteLast = (req, res) => {
-    
-    date.find({})
-    
-    .then(dateSchema => {
-        //var last = JSON.parse(dateSchema[dateSchema.length-1])
-        var last = dateSchema[dateSchema.length-1]
-        var id = last._id
-        console.log(id)
+  await collection.insertOne({ date: new Date() });
 
-        date.deleteOne({_id: id}, (err) => {
-            if(err){
-                res.send(err)
-            }
-            res.send('supprimé')
-        })
-    })/*.catch(err) {
-        console.log(err)
-    }*/
-
-
-     
-}
+  await client.close();
+})();
